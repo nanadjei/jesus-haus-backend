@@ -15,6 +15,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+    protected $apiNamespace = "App\Http\Controllers\Api\\v1\User";
+    protected $adminApiNamespace = "App\Http\Controllers\Api\\v1\Admin";
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -35,11 +37,11 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapApiRoutes();
-
         $this->mapWebRoutes();
 
-        //
+        $this->mapApiRoutes();
+
+        $this->mapAdminApiRoutes();
     }
 
     /**
@@ -52,12 +54,12 @@ class RouteServiceProvider extends ServiceProvider
     protected function mapWebRoutes()
     {
         Route::middleware('web')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/web.php'));
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
     }
 
     /**
-     * Define the "api" routes for the application.
+     * Define the "api" routes for the application - users.
      *
      * These routes are typically stateless.
      *
@@ -65,9 +67,24 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes()
     {
-        Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+        Route::prefix('api/v1')
+            ->middleware('api')
+            ->namespace($this->apiNamespace)
+            ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "api" routes for the admin side.
+     *
+     * These routes are typically stateless.
+     *
+     * @return void
+     */
+    protected function mapAdminApiRoutes()
+    {
+        Route::prefix('api/v1')
+            ->middleware('api')
+            ->namespace($this->adminApiNamespace)
+            ->group(base_path('routes/admin.api.php'));
     }
 }
