@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api\v1\Admin\Auth;
 
-// use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 use App\Http\Controllers\Controller;
 
 class AuthController extends Controller
@@ -39,7 +39,6 @@ class AuthController extends Controller
         tap($userByEmail)->update(['last_login' => now()])->fresh();
 
         return $this->respondWithToken($userByEmail, $token);
-    }
     }
 
     /**
