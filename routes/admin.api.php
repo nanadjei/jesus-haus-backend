@@ -10,9 +10,13 @@
 |
 */
 
-Route::group(["middleware" => 'api', 'prefix' => 'user', 'namespace' => 'Auth'], function () {
+Route::group(["middleware" => "api", "prefix" => "admin", "namespace" => "Auth"], function () {
     Route::post('login', 'AuthController@login');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+});
+
+Route::group(["middleware" => "api", "prefix" => "admin"], function () {
+    Route::get('get/categories/{type}', 'CategoriesController@getCategoriesBySlug');
 });

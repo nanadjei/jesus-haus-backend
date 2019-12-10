@@ -30,4 +30,12 @@ class Category extends Model
     {
         return $query->where('type', 'utility');
     }
+
+    /**
+     * Get all categories with specified type
+     */
+    public static function pertainingToSlug($slug)
+    {
+        return static::where('slug', $slug);
+    }
 }
