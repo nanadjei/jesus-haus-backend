@@ -19,4 +19,6 @@ Route::group(["middleware" => "api", "prefix" => "admin", "namespace" => "Auth"]
 
 Route::group(["middleware" => "api", "prefix" => "admin"], function () {
     Route::get('get/categories/{type}', 'CategoriesController@getCategoriesBySlug');
+    Route::get('cashflows/{type}', 'CashflowController@byType');
+    Route::apiResource('cashflows', 'CashflowController');
 });

@@ -38,4 +38,12 @@ class Category extends Model
     {
         return static::where('slug', $slug);
     }
+
+    /** 
+     * Get all cashflows with this category. Been it "tithes". "dues";
+     */
+    public function cashflow()
+    {
+        return $this->hasMany(Cashflow::class);
+    }
 }
