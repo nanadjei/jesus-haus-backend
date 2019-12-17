@@ -20,7 +20,7 @@ class CashflowController extends Controller
      */
     public function index()
     {
-        return responder()->success(Cashflow::orderBy('created_at', 'desc')->paginate(15))->respond();
+        return responder()->success(Cashflow::with(['category'])->orderBy('created_at', 'desc')->paginate(15))->respond();
     }
 
     /**
@@ -30,8 +30,18 @@ class CashflowController extends Controller
      */
     public function byType(string $type)
     {
-        $cashflow = Cashflow::where("type", $type)->orderBy('created_at', 'desc')->paginate(15);
+        $cashflow = Cashflow::where("type", $type)->with(['category'])->orderBy('created_at', 'desc')->paginate(15);
 
+        return responder()->success($cashflow)->respond();
+    }
+
+    /**
+     * Search cashflow by providing the type and search keyword
+     */
+    public function search($keyword)
+    {
+        $cashflow = Cashflow::where("receiver_or_giver", "LIKE", "%" . $keyword . "%")
+            ->orWhere("amount", "=", $keyword)->with('category')->get();
         return responder()->success($cashflow)->respond();
     }
 

@@ -20,4 +20,20 @@ class Cashflow extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    /**
+     * Scope cashflow by income
+     */
+    public function scopeIncome($query)
+    {
+        return $query->where('type', 'income');
+    }
+
+    /**
+     * Scope cashflow by expense
+     */
+    public function scopeExpense($query)
+    {
+        return $query->where('type', 'expense');
+    }
 }

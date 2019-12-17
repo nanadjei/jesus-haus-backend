@@ -42,7 +42,7 @@ class Category extends Model
     /** 
      * Get all cashflows with this category. Been it "tithes". "dues";
      */
-    public function cashflow()
+    public function cashflows()
     {
         return $this->hasMany(Cashflow::class);
     }

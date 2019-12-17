@@ -18,7 +18,10 @@ $factory->define(Cashflow::class, function (Faker $faker) {
         "amount" => $faker->randomElement(["470.00", "220.00", "520.00", "650.00", "180.00", "300.00", "380.00", "6500.00", "1400.00", "280.00", "500.00", "750.00", "250.00"]),
         "receiver_or_giver" => function ($cashflow) use ($faker) {
             if ($cashflow['type'] == "expense") {
-                return Category::utility()->where('id', $cashflow["category_id"])->first()->name;
+                if ($cashflow["category_id"] == Category::utility()->where('slug', "light-bill")->first()->id) {
+                    return "ECG - " . $faker->randomElement(["Mr.", "Mrs.", "Miss"]) . " " . $faker->name;
+                }
+                return "Ghana Water - " . $faker->randomElement(["Mr.", "Mrs.", "Miss"]) . " " . $faker->name;
             }
             return $faker->randomElement(["Mr.", "Mrs.", "Miss"]) . " " . $faker->name;
         },

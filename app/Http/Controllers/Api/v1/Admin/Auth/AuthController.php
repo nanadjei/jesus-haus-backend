@@ -33,7 +33,7 @@ class AuthController extends Controller
         }
 
         if (!$token = auth('api')->attempt(request(['email', 'password']))) {
-            return responder()->error("password", "Your password is invalid")->respond(401);
+            return responder()->error("password", "Your password is incorrect")->respond(401);
         }
 
         tap($userByEmail)->update(['last_login' => now()])->fresh();
