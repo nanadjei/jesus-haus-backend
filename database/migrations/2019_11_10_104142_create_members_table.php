@@ -19,10 +19,10 @@ class CreateMembersTable extends Migration
             $table->foreign("department_id")->references("id")->on("departments");
 
             $table->enum('type', ["member", "visitor"])->default("member");
+            $table->string('title');
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('email')->unique();
-            $table->enum('title', ["mr", "mrs", "miss"]);
             $table->date("dob")->nullable();
             $table->string('phone')->nullable();
             $table->timestamps();

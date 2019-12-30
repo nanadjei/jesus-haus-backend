@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Api\v1\Admin;
 
 use App\Models\Cashflow;
-// use App\Models\Category;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class CashflowController extends Controller
+class CashflowsController extends Controller
 {
     public function __construct()
     {
@@ -52,9 +50,11 @@ class CashflowController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Cashflow $cashflow)
     {
-        //
+        $cashflow = $cashflow->create(array_merge(["staff_id" => auth('api')->id()], request()->validate($cashflow->createRules())));
+
+        return responder()->success($cashflow)->respond();
     }
 
     /**
@@ -75,9 +75,11 @@ class CashflowController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Cashflow $cashflow)
     {
-        //
+        $cashflow = tap($cashflow)->update(array_merge(["staff_id" => auth('api')->id()], request()->validate($cashflow->createRules())))->fresh();
+
+        return responder()->success($cashflow)->respond();
     }
 
     /**

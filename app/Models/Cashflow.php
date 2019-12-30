@@ -36,4 +36,10 @@ class Cashflow extends Model
     {
         return $query->where('type', 'expense');
     }
+
+    /** Validation rules for creating a cashflow record */
+    public function createRules(): array
+    {
+        return ["category_id" => "required|integer", "type" => "required|in:income,expense", "description" => "sometimes|nullable|min:3", "amount" => "required|numeric", "receiver_or_giver" => "required|min:3", "as_at" => "required|date"];
+    }
 }

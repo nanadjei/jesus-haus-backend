@@ -18,8 +18,9 @@ Route::group(["middleware" => "api", "prefix" => "admin", "namespace" => "Auth"]
 });
 
 Route::group(["middleware" => "api", "prefix" => "admin"], function () {
+    Route::get('cashflows/{type}', 'CashflowsController@byType');
+    Route::apiResource('cashflows', 'CashflowsController')->except(['create', 'edit']);
+    Route::apiResource('members', 'MembersController')->except(['create', 'edit']);
+    Route::get('cashflows/search/{keyword}', 'CashflowsController@search');
     Route::get('get/categories/{type}', 'CategoriesController@getCategoriesBySlug');
-    Route::get('cashflows/{type}', 'CashflowController@byType');
-    Route::apiResource('cashflows', 'CashflowController')->except(['create', 'edit']);
-    Route::get('cashflows/search/{keyword}', 'CashflowController@search');
 });
