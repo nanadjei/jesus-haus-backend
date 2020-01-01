@@ -36,6 +36,15 @@ class MembersController extends Controller
     }
 
     /**
+     * Search members by providing the name, phone or email
+     */
+    public function search($keyword)
+    {
+        $members = Member::where("first_name", "LIKE", "%" . $keyword . "%")->orWhere("last_name", "LIKE", "%" . $keyword . "%")->orWhere("phone", "LIKE", "%" . $keyword . "%")->paginate(15);
+        return responder()->success($members)->respond();
+    }
+
+    /**
      * Display the specified resource.
      *
      * @param  int  $id
