@@ -27,4 +27,6 @@ Route::group(["middleware" => "api", "prefix" => "admin"], function () {
     Route::get('get/categories/{type}', 'CategoriesController@getCategoriesBySlug');
     Route::post('members/sms/notification', 'SmsController@send');
     Route::get('members/sms/balance', 'SmsController@balance');
+
+    Route::get("dashboard", "DashboardController@index");
 });
