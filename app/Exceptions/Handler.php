@@ -46,6 +46,23 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($exception instanceof \Illuminate\Database\Eloquent\ModelNotFoundException) {
+            return response()->json([
+                'status' => 404,
+                'success' => false,
+                'code' => 'no_query_for_model',
+                'message' => 'Record does not exist.'
+            ], 404);
+        } else if ($exception instanceof \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException) {
+            return response()->json([
+                'status' => 401,
+                'success' => false,
+                'code' => 'unauthorized',
+                'message' => 'You are currently logged out.'
+            ], 401);
+        }
+
+
         return parent::render($request, $exception);
     }
 }

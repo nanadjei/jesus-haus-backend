@@ -21,7 +21,10 @@ Route::group(["middleware" => "api", "prefix" => "admin"], function () {
     Route::get('cashflows/{type}', 'CashflowsController@byType');
     Route::apiResource('cashflows', 'CashflowsController')->except(['create', 'edit']);
     Route::apiResource('members', 'MembersController')->except(['create', 'edit']);
+    Route::apiResource('member/departments', 'DepartmentsController')->except(['create', 'edit']);
     Route::get('members/search/{keyword}', 'MembersController@search');
     Route::get('cashflows/search/{keyword}', 'CashflowsController@search');
     Route::get('get/categories/{type}', 'CategoriesController@getCategoriesBySlug');
+    Route::post('members/sms/notification', 'SmsController@send');
+    Route::get('members/sms/balance', 'SmsController@balance');
 });

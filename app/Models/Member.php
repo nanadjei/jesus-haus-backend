@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 
 class Member extends Model
 {
+
+    use Notifiable;
     /**
      * The attributes that are mass assignable.
      *
@@ -37,5 +40,11 @@ class Member extends Model
     public function getFullNameAttribute()
     {
         return $this->title . " " . $this->first_name . " " . $this->last_name;
+    }
+
+    /** Validation rules for creating a cashflow record */
+    public function createRules(): array
+    {
+        return ["department_id" => "required|integer", "type" => "required|in:member,visitor", "title" => "required", "first_name" => "required|min:2", "last_name" => "required|min:2", "email" => "required", "dob" => "required|date", "phone" => "required|numeric"];
     }
 }
